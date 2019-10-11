@@ -13,32 +13,19 @@ defineSupportCode(({Given, When, Then}) => {
   });
   When('I try to login', () => {
     var cajaLogIn = $('#login-form');
-    cajaLogIn.$('button=Login').click();
+    cajaLogIn.$('.btn-info').click();
   });
   When('I try to register', () => {
       var cajaSignUp = $('.cajaSignUp');
       cajaSignUp.$('button=Registrarse').click()
   });
-  When('I check my program', () => {
-      var cajaSignUp = $('.cajaSignUp');
-      var universityInput = cajaSignUp.$('select[name="idUniversidad"]');
-      var programCheckbox=cajaSignUp.$('input[type=checkbox]');
-      console.log("Valor del checkbox: ",programCheckbox);
-      programCheckbox.click();
-      var program=cajaSignUp.$('select[name="idPrograma"]');
-      program.waitForDisplayed(2000);
-      program.click();
-      program.waitForDisplayed(2000);
-      console.log("programHTML: ",program.getHTML());
-      console.log("programValue: ",program.getValue());
-      program.selectByAttribute('value', "16");
-      console.log("programValueNext: ",program.getValue());
-      expect(program.getValue()).to.eq("16");
-  });
-  When('I accept terms', () => {
-      var cajaSignUp = $('.cajaSignUp');
-      var acceptCheckbox=cajaSignUp.$('input[name=acepta]');
-      acceptCheckbox.click();
+  When(/^I add a Habit called (.*)$/, (name) => {
+      var addHabit = $('.tasks-list').$('textarea[placeholder="Add a Habit"]');
+      console.log('valor addHabit', addHabit);
+      addHabit.click();
+      //addHabit.clear();
+      addHabit.keys(name + '\n');
+
   });
   Then('I expect to not be able to login', () => {
     var aviso = $('.aviso.alert.alert-danger').waitForDisplayed(5000);
@@ -49,7 +36,7 @@ defineSupportCode(({Given, When, Then}) => {
       mailInput.click();
       mailInput.keys(email);
 
-      var passwordInput = cajaLogIn.$('input[name="passwordInput"]');
+      var passwordInput = cajaLogIn.$('input[id="passwordInput"]');
       passwordInput.click();
       passwordInput.keys(password)
   });
@@ -82,6 +69,16 @@ defineSupportCode(({Given, When, Then}) => {
         aviso.waitForDisplayed(5000);
         var alertText = aviso.getText();
         expect(alertText).to.include(error);
+  });
+
+  Then('I expect to habit has be created', name => {
+        var newHabit=$('div').find('h3');
+        //newHabit.waitForExist(5000);
+
+        console.log("valor de newHabit: ",newHabit);
+        //aviso.waitForDisplayed(5000);
+        //var alertText = aviso.getText();
+        //expect(alertText).to.include(error);
   });
 
   Then('I dont expect to see Ingresar', () => {
