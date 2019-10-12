@@ -27,9 +27,10 @@ defineSupportCode(({Given, When, Then}) => {
       addHabit.keys(name + '\n');
 
   });
-  Then('I expect to not be able to login', () => {
-    var aviso = $('.aviso.alert.alert-danger').waitForDisplayed(5000);
+  When(/^I edit a Habit called (.*)$/, (name) => {
+      console.log('valor name edit: ', name);
   });
+
   When(/^I fill with (.*) and (.*)$/ , (email, password) => {
       var cajaLogIn = $('#login-form');
       var mailInput = cajaLogIn.$('input[id="usernameInput"]');
@@ -71,14 +72,16 @@ defineSupportCode(({Given, When, Then}) => {
         expect(alertText).to.include(error);
   });
 
-  Then('I expect to habit has be created', name => {
-        var newHabit=$('div').find('h3');
-        //newHabit.waitForExist(5000);
-
-        console.log("valor de newHabit: ",newHabit);
-        //aviso.waitForDisplayed(5000);
-        //var alertText = aviso.getText();
-        //expect(alertText).to.include(error);
+  Then(/^I expect to habit (.*) has be created$/, name => {
+        var newHabit=$('div').$('h3');
+        newHabit.waitForExist(5000);
+        var title = $$('h3[class="task-title markdown"]');
+        title.forEach((item)=>{
+            var nameTask=item.$('p').getText();
+            if(nameTask == name){
+                expect(nameTask).to.include(name);
+            }
+        });
   });
 
   Then('I dont expect to see Ingresar', () => {
