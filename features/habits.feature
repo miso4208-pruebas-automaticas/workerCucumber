@@ -15,14 +15,11 @@ Scenario Outline: Add a Habit
         | email                 | password       | error  |name                       |
         | fakeUser1@fake.com    | pruebas201902  |        |Habito de pruebas cucumber |
 
-Scenario Outline: Edit a Habit
+Scenario Outline: Delete a Habit
 
-    #Comment Given I go to habitica home screen
-    #Comment When I open the login screen
-    #Comment And I fill with <email> and <password>
-    #Comment And I try to login
-    #Comment And I edit a Habit called <name>
-    #Comment Then I expect to habit <name> has be created
+    Given I go to habitica home screen
+    And I delete a Habit called <name>
+    #Comment Then I expect to habit <name> does not exist
 
       Examples:
         | email                 | password       | error  |name                       |

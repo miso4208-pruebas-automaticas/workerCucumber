@@ -27,8 +27,20 @@ defineSupportCode(({Given, When, Then}) => {
       addHabit.keys(name + '\n');
 
   });
-  When(/^I edit a Habit called (.*)$/, (name) => {
+  When(/^I delete a Habit called (.*)$/, name => {
       console.log('valor name edit: ', name);
+      var newHabit=$('div').$('h3');
+      newHabit.waitForExist(5000);
+      var title = $$('h3[class="task-title markdown"]');
+      title.forEach((item)=>{
+          var nameTask=item.$('p').getText();
+          if(nameTask == name){
+              item.$('p').click();
+              var del=$('#task-modal .delete-task-btn');
+              del.waitForExist(2000);
+              del.$('span').click()
+          }
+      });
   });
 
   When(/^I fill with (.*) and (.*)$/ , (email, password) => {
