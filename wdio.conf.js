@@ -1,3 +1,6 @@
+const { generate } = require('multiple-cucumber-html-reporter');
+const { removeSync } = require('fs-extra');
+
 exports.config = {
 
     //
@@ -122,7 +125,30 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    reporters: ['spec'],
+    //reporters: ['spec'],
+    /*reporters: [['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+    }]],*/
+    /*reporters:  [
+      'spec',
+      ['mochawesome',{
+        outputDir: './test/report/',
+      }]
+    ],*/
+    reporters: ['spec',
+        // Like this with the default options, see the options below
+        [ 'cucumberjs-json', {
+                jsonFolder: './test/json/',
+                language: 'en',
+            },
+        ],
+    ],
+    /*mochawesomeOpts: {
+      includeScreenshots:true,
+      screenshotUseRelativePath:true
+    },*/
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -141,6 +167,8 @@ exports.config = {
         timeout: 20000,     // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
     },
+
+
 
     //
     // =====
@@ -251,4 +279,35 @@ exports.config = {
      */
     // onComplete: function(exitCode) {
     // }
+    /*onComplete: function (exitCode, config, capabilities, results) {
+      const mergeResults = require('wdio-mochawesome-reporter/mergeResults')
+      mergeResults('./test/report/', "results-*")
+    }*/
+    /*onComplete: () => {
+      report.generate({
+        jsonDir: './test/report/',
+        reportPath: './test/report/'
+      });
+    }*/
+    /**
+   * Gets executed once before all workers get launched.
+   */
+    onPrepare: () => {
+      // Remove the `.tmp/` folder that holds the json and report files
+      removeSync('./test/');
+    },
+    /**
+     * Gets executed after all workers got shut down and the process is about to exit.
+     */
+    onComplete: () => {
+      // Generate the report when it all tests are done
+      generate({
+        // Required
+        // This part needs to be the same path where you store the JSON files
+        // default = '.tmp/json/'
+        jsonDir: './test/json/',
+        reportPath: './test/report/',
+        // for more options see https://github.com/wswebcreation/multiple-cucumber-html-reporter#options
+      });
+    }
 }
