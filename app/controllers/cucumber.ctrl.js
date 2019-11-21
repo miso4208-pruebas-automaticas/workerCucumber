@@ -8,7 +8,7 @@ var sqs = require('../../worker-sqs/sqs.js') //CAMBIO: ADICIONAR DEPENDENCIA
 
 const execute = () => {
     sqs.getSqs(function(apps){
-        console.log("Ejecucion cypress mockaro test");
+        console.log("Ejecucion cucumber test");
     });
   }
 
@@ -17,8 +17,7 @@ router.get('/start', (req,res) => {
     execute();
     task.start();
     res.send('Cron iniciado')
-
-  })
+})
 
 
 

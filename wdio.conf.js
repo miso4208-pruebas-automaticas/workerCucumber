@@ -1,6 +1,7 @@
 const { generate } = require('multiple-cucumber-html-reporter');
 const { removeSync } = require('fs-extra');
 
+
 exports.config = {
 
     //

@@ -1,12 +1,12 @@
 var AWS = require('aws-sdk');
 var cucumberService = require('../app/services/cucumber.srv.js');
-
+AWS.config.getCredentials;
 AWS.config.update({region:'us-east-1'});
 var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 const sqsUrl = 'https://sqs.us-east-1.amazonaws.com/669213563582/worker-cucumber-queue.fifo';
 
 module.exports.getSqs = function(req,success,error){
-    console.log("sqs.,,,")
+    console.log("sqs cucumber.,,,")
     var params = {
       AttributeNames: [
         'SentTimestamp'
@@ -26,7 +26,7 @@ module.exports.getSqs = function(req,success,error){
       } else if (data.Messages) {
           console.log(data.Messages[0])
         let payload = JSON.parse(data.Messages[0].Body);
-
+        console.log("Valor del payload: ", payload);
         executeService(payload,() => {
             console.log('ok test');
             sqsComplete(data.Messages[0].ReceiptHandle,payload.code);

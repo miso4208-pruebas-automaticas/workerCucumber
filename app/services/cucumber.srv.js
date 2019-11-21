@@ -6,13 +6,14 @@ const s3 = require('../../worker-sqs/s3Storage.js')
 
 module.exports.generateCucumber = function(req,success,error){
 
-    shell.exec('npm install');
+    //shell.exec('npm install');
     let itemsEx = req.numberExecution;
     let path = req.path_project;
     let code = req.code;
     const codeinit = req.code;
     var item = 1;
-    return shell.exec('npm test', function(res){
+    //return shell.exec('npm test', function(res){
+    shell.exec('npm test', function(res){
       //console.log("Shell Response: ",res);
       //shell.exec('allure generate ./allure-results');
       //shell.exec('allure open');
@@ -34,12 +35,6 @@ module.exports.generateCucumber = function(req,success,error){
                   if(items[i].includes('html')){
                       fs.unlinkSync(`${path}/test/report/${items[i]}`);
                   }
-              }
-              if(item == itemsEx){
-                  success("ok");
-              }else{
-              item = item+1;
-              resolve();
               }
           });
       });
