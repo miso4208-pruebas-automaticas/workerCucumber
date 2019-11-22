@@ -16,6 +16,7 @@ module.exports.generateCucumber = function(req,success,error){
             code = `${codeinit}_${item}`;
             shell.exec('./node_modules/.bin/wdio wdio.conf.js', function(stdout, stderr) {
                 fs.readdir(`${path}/test/report`,function(err, items) {
+                    console.log("items: ", items);
                     let file;
                     for(var i=0;i<items.length;i++){
                         if(items[i].includes('html')){

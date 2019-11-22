@@ -5,9 +5,9 @@ Feature: CRUD of a Habit into Habitica
 Scenario Outline: Add a Habit
 
     Given I go to habitica home screen
-#    When I open the login screen
-#    And I fill with <email> and <password>
-#    And I try to login
+    When I open the login screen
+    And I fill with <email> and <password>
+    And I try to login
 #    And I add a Habit called <name>
 #    Then I expect to habit <name> has be created
 
