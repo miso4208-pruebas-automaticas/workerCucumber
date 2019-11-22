@@ -24,6 +24,9 @@
     "multiple-cucumber-html-reporter": "^1.13.1",
     "wdio-cucumberjs-json-reporter": "^1.1.1"
   },
+  "engines": {
+    "node": "10.17.0"
+  },
   "dependencies": {
     "@wdio/cli": "^5.12.5",
     "@wdio/cucumber-framework": "^5.12.3",
