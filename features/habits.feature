@@ -18,7 +18,7 @@ Scenario Outline: Add a Habit
 #Scenario Outline: Delete a Habit
 
 #    Given I go to habitica home screen
-#    And I delete a Habit called <name>
+#     And I delete a Habit called <name>
     #Comment Then I expect to habit <name> does not exist
 
       Examples:

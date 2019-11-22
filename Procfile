@@ -1,1 +1,1 @@
-web: gunicorn workerCucumber.wsgi
+worker: node app.js
