@@ -49,3 +49,6 @@ Thumbs.db
 /.mutode
 /node_modules
 /test
+./node_modules
+./test
+
