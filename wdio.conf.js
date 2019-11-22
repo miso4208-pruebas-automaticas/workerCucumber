@@ -62,7 +62,7 @@ exports.config = {
     sync: true,
     //
     // Level of logging verbosity: silent | verbose | command | data | result | error
-    logLevel: 'trace',
+    logLevel: 'verbose',
     //
     // Enables colors for log output.
     coloredLogs: true,
@@ -126,7 +126,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    //reporters: ['spec'],
+    reporters: ['spec'],
     /*reporters: [['allure', {
         outputDir: 'allure-results',
         disableWebdriverStepsReporting: true,
@@ -138,7 +138,7 @@ exports.config = {
         outputDir: './test/report/',
       }]
     ],*/
-    reporters: ['spec',
+    /*reporters: ['spec',
         // Like this with the default options, see the options below
         [ 'cucumberjs-json', {
                 jsonFolder: './test/json/',
@@ -293,7 +293,7 @@ exports.config = {
     /**
    * Gets executed once before all workers get launched.
    */
-    onPrepare: () => {
+    /*onPrepare: () => {
       // Remove the `.tmp/` folder that holds the json and report files
       removeSync('./test/');
     },

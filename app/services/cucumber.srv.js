@@ -4,23 +4,23 @@ const report = require('multiple-cucumber-html-reporter');
 const fs = require('fs');
 const s3 = require('../../worker-sqs/s3Storage.js')
 
-module.exports.generateCucumber = function(req,success,error){
+//const { exec } = require('child_process');
 
+
+module.exports.generateCucumber = function(req,success,error){
+    var child = shell.exec('./node_modules/.bin/wdio wdio.conf.js', function(code, stdout, stderr) {
+        console.log('Exit code:', code);
+        console.log('Program output:', stdout);
+        console.log('Program stderr:', stderr);
+    });
     //shell.exec('npm install');
     let itemsEx = req.numberExecution;
     let path = req.path_project;
     let code = req.code;
     const codeinit = req.code;
     var item = 1;
+      /*
     //return shell.exec('npm test', function(res){
-    shell.exec('npm test', function(res){
-      //console.log("Shell Response: ",res);
-      //shell.exec('allure generate ./allure-results');
-      //shell.exec('allure open');
-      /*console.log("Reporte: ",report.generate({
-      	jsonDir: './test/json',
-      	reportPath: './test/report'
-      }));*/
       fs.readdir(`${path}/test/report`,function(err, items) {
           let file;
           for(var i=0;i<items.length;i++){
@@ -44,6 +44,5 @@ module.exports.generateCucumber = function(req,success,error){
         success('Test fails');
         console.error('Test fails');
       }
-    });
-
+    });*/
 }

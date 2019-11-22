@@ -8,7 +8,7 @@ defineSupportCode(({Given, When, Then}) => {
   });
   When('I open the login screen', () => {
      $('a[href="/login"]').waitForExist(5000);
-     $('a[href="/login"]').waitForDisplayed(5000);
+     $('a[href="/login"]');//.waitForDisplayed(5000);
      $('a[href="/login"]').click();
   });
   When('I try to login', () => {
@@ -79,7 +79,7 @@ defineSupportCode(({Given, When, Then}) => {
   Then('I expect to see {string}', error => {
         var aviso=$('.error[data-v-1d3681ba]');
         aviso.waitForExist(5000);
-        aviso.waitForDisplayed(5000);
+        aviso;//.waitForDisplayed(5000);
         var alertText = aviso.getText();
         expect(alertText).to.include(error);
   });
@@ -107,7 +107,7 @@ defineSupportCode(({Given, When, Then}) => {
   });
 
   Then('I expect to login', () => {
-    var cuenta=$('#cuenta').waitForDisplayed(5000);
+    var cuenta=$('#cuenta');//.waitForDisplayed(5000);
     expect($('#cuenta').isDisplayed()).to.be.true;
   });
 
