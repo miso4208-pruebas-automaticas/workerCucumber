@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "node node_modules/.bin/wdio wdio.conf.js",
-    "heroku-postbuild": "cd front && npm install --only=prod && npm run build"
+    "heroku-postbuild": "npm install --only=prod && npm run build"
   },
   "repository": {
     "type": "git",
