@@ -2,14 +2,16 @@ var AWS = require('aws-sdk');
 
 AWS.config.update({
   region: 'us-east-1',
+  accessKeyId: process.env.ACCES_KEY_ID_S3,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY_S3
 });
 
 const s3 = new AWS.S3({
   apiVersion: '2006-03-01'
 });
+const bucketname= 'reports-cucumber-testing' //CAMBIAR POR NOMBRE DE BUCKET DE ACUERDO A TIPO DE PRUEBA
 
 module.exports.saveFileToS3 = (code, file, success) => {
-  let bucketname= 'reports-cucumber-testing'
   console.log("key: ", code);
   console.log("Bucket name: ", bucketname);
   s3.createBucket({
@@ -38,7 +40,7 @@ module.exports.saveFileToS3 = (code, file, success) => {
         return 0;
       }
       updateUrlReport(code,`https://${bucketname}.s3.amazonaws.com/${code}`);
-      console.log('HTML creado exitosamente: '+`https://${bucketname}.s3.amazonaws.com/${code}`);
+      console.log('HTML creado exitosamente: '+`https://${bucketname}.s3.amazonaws.com/${code}.html`);
       success();
     });
     listBucketKeys(code);
@@ -47,7 +49,7 @@ module.exports.saveFileToS3 = (code, file, success) => {
 }
 
 updateUrlReport = (code,url_report)=>{
-  let update = `UPDATE hangover.EXECUTION_TESTS SET url_report="${url_report}" WHERE code="${code}"`;
+  let update = `UPDATE hangover.EXECUTION_TESTS SET url_report="${url_report}", status="1" WHERE code="${code}"`;
   console.log("report->"+update);
   db.query(update, (err, result) => {
       if (err) throw error;
@@ -105,7 +107,7 @@ const listBucketKeys = (key)=>{
   var raiz = split[0];
   console.log("directorio raiz: ", raiz);
   let params={
-    Bucket: 'reports-cucumber-testing',
+    Bucket: bucketname,
     Prefix: raiz,
   }
   s3.listObjectsV2(params,function(err,data){
