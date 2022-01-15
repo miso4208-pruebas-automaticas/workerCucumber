@@ -45,7 +45,7 @@
     "path": "^0.12.7",
     "request": "^2.88.0",
     "shell-exec": "^1.0.2",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "wdio-cucumber-framework": "^2.2.8",
     "wdio-html-reporter": "^1.0.2",
     "wdio-selenium-standalone-service": "0.0.12",
